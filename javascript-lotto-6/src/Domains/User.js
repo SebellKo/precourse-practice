@@ -7,6 +7,8 @@ class User {
 
   #money;
 
+  #scoreBoard;
+
   constructor(money) {
     this.#validateMoney(money);
     this.#money = money;
@@ -24,6 +26,16 @@ class User {
 
   buyLotto() {
     this.#lotto = LottoShop.createLotto(this.#money / 1000);
+  }
+
+  getScoreBoard() {
+    const { scoreBoard, totalProfit } = LottoShop.createScoreBoard(
+      this.#lotto,
+      this.#money,
+    );
+    this.#scoreBoard = scoreBoard;
+    this.#profit = totalProfit;
+    return { scoreBoard: this.#scoreBoard, profit: this.#profit };
   }
 }
 
