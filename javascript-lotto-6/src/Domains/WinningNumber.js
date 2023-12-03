@@ -24,6 +24,13 @@ class WinningNumber extends Lotto {
       throw new Error('[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.');
     }
   }
+
+  static getWinningNumber() {
+    return {
+      winningNumber: this.#winningNumber,
+      bonusNumber: this.#bonusNumber,
+    };
+  }
 }
 
 export default WinningNumber;
