@@ -1,23 +1,20 @@
-import Lotto from '../Lotto';
-
-class WinningNumber extends Lotto {
+class WinningNumber {
   #winningNumber;
 
   #bonusNumber;
 
   constructor(winningNumber, bonusNumber) {
-    super(winningNumber);
-    this.#winningNumber = super.getNumber();
+    this.#winningNumber = winningNumber.getNumber();
     this.#validateBonusNumber(bonusNumber);
     this.#bonusNumber = bonusNumber;
   }
 
   #validateBonusNumber(bonusNumber) {
     const check = /^[0-9]+$/;
-    if (check.test(bonusNumber)) {
+    if (!check.test(bonusNumber)) {
       throw new Error('[ERROR] 숫자를 입력해 주세요.');
     }
-    if (bonusNumber >= 1 && bonusNumber <= 45) {
+    if (!(bonusNumber >= 1 && bonusNumber <= 45)) {
       throw new Error('[ERROR] 1 ~ 45 사이의 숫자를 입력해주세요.');
     }
     if (this.#winningNumber.includes(bonusNumber)) {
@@ -25,7 +22,7 @@ class WinningNumber extends Lotto {
     }
   }
 
-  static getWinningNumber() {
+  getWinningNumber() {
     return {
       winningNumber: this.#winningNumber,
       bonusNumber: this.#bonusNumber,

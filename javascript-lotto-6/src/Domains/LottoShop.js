@@ -1,16 +1,21 @@
-import createRandomNumber from '../utils/createRandomNumber';
-import WinningNumber from './WinningNumber';
+import createRandomNumber from '../utils/createRandomNumber.js';
 
 class LottoShop {
+  #winningNumber;
+
+  constructor(winningNumber) {
+    this.#winningNumber = winningNumber;
+  }
+
   static createLotto(tryNumber) {
     const lotto = [];
     for (let i = 0; i < tryNumber; i += 1) {
-      lotto.push(createRandomNumber());
+      lotto.push(createRandomNumber().sort((a, b) => a - b));
     }
-    return lotto.sort((a, b) => a - b);
+    return lotto;
   }
 
-  static createScoreBoard(lotto, money) {
+  createScoreBoard(lotto, money) {
     const scoreBoard = this.calculateScore(lotto);
     const totalProfit = this.calculateProfit(money, scoreBoard);
 
@@ -22,7 +27,8 @@ class LottoShop {
 
   calculateScore(lotto) {
     const scoreBoard = { first: 0, second: 0, third: 0, fourth: 0, fifth: 0 };
-    const { winningNumber, bonusNumber } = WinningNumber.getWinningNumber();
+    const { winningNumber, bonusNumber } =
+      this.#winningNumber.getWinningNumber();
     lotto.forEach((numbers) => {
       const matchCount = this.compareNumber(numbers, winningNumber);
       const grade = this.applyScoreBoard(matchCount, bonusNumber, numbers);
@@ -72,9 +78,7 @@ class LottoShop {
   }
 
   compareNumber(numbers, winningNumber) {
-    return numbers.filter((number) =>
-      winningNumber.winningNumber.includes(number),
-    ).length;
+    return numbers.filter((number) => winningNumber.includes(number)).length;
   }
 
   checkIncludeBonusNumber(numbers, bonusNumber) {

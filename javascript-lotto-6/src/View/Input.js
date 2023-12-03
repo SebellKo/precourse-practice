@@ -1,22 +1,24 @@
 import { Console } from '@woowacourse/mission-utils';
 
-class View {
-  static getPurchaseMoney() {
-    const money = Console.readLineAsync('구입금액을 입력해 주세요.\n');
+class InputView {
+  async getPurchaseMoney() {
+    const money = await Console.readLineAsync('구입금액을 입력해 주세요.\n');
+    Console.print('');
     return money;
   }
 
-  static getWinNumber() {
-    const number = Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
+  async getWinNumber() {
+    const number = await Console.readLineAsync('당첨 번호를 입력해 주세요.\n');
     Console.print('');
-    return number;
+    return number.split(',');
   }
 
-  static getBonusNumber() {
-    const bonusNumber = Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
+  async getBonusNumber() {
+    const bonusNumber =
+      await Console.readLineAsync('보너스 번호를 입력해 주세요.\n');
     Console.print('');
     return bonusNumber;
   }
 }
 
-export default View;
+export default InputView;
